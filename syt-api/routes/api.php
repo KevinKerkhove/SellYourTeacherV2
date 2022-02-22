@@ -20,9 +20,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('auth:api')->group(function  () {
-    Route::apiResource('annonce',AnnonceController::class);
-});
+
+Route::get('annonces', [AnnonceController::class, 'index']);
+Route::post('addAnnonce', [AnnonceController::class, 'addAnnonce']);
+Route::get('annonce/{id}', [AnnonceController::class, 'show']);
+Route::put('updateAnnonce/{id}', [AnnonceController::class, 'update']);
+Route::delete('deleteAnnonce/{id}', [AnnonceController::class, 'destroy']);
+
 
 Route::middleware('auth:api')->group(function  () {
     Route::apiResource('user',UserController::class);

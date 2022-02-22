@@ -15,7 +15,7 @@ class AnnonceController extends Controller
      */
     public function index()
     {
-        return ResourcesAnnonce::collection(Annonce::orderByDesc('created_at')->get());
+        return Annonce::all();
     }
 
     /**
@@ -24,7 +24,7 @@ class AnnonceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function addAnnonce(Request $request)
     {
         if(Annonce::create($request->all())){
             return response()->json([
@@ -39,11 +39,9 @@ class AnnonceController extends Controller
      * @param  \App\Models\Annonce  $annonce
      * @return \Illuminate\Http\Response
      */
-    public function show(Annonce $annonce)
-    {
-        
-
-        return new ResourcesAnnonce($annonce);
+    public function show($id)
+    { 
+        return Annonce::find($id);
     }
 
     /**
@@ -53,13 +51,18 @@ class AnnonceController extends Controller
      * @param  \App\Models\Annonce  $annonce
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Annonce $annonce)
+    public function update(Request $request, $id)
     {
-        if($annonce->update($request->all())){
+        $annonce = Annonce::find($id);
+        if(is_null($annonce)) {
             return response()->json([
-                'success' => 'Annonce modifiée avec succès'
+                'error' => 'Annonce non trouvée'
             ],200);
         }
+        $annonce->update($request->all());
+        return response()->json([
+            'success' => 'Annonce modifiée avec succès'
+        ],200);
     }
 
     /**
@@ -68,8 +71,9 @@ class AnnonceController extends Controller
      * @param  \App\Models\Annonce  $annonce
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Annonce $annonce)
+    public function destroy($id)
     {
+        $annonce = Annonce::find($id);
         $annonce->delete();
     }
 }

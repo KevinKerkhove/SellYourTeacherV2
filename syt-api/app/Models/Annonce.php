@@ -9,5 +9,5 @@ class Annonce extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title','content'];
+    protected $fillable = ['title','subject', 'grade', 'description','date','duration','hourly_price', 'professor_id'];
 }
