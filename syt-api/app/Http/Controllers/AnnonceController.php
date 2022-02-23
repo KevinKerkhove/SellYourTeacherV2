@@ -57,7 +57,7 @@ class AnnonceController extends Controller
         if(is_null($annonce)) {
             return response()->json([
                 'error' => 'Annonce non trouvée'
-            ],200);
+            ],404);
         }
         $annonce->update($request->all());
         return response()->json([

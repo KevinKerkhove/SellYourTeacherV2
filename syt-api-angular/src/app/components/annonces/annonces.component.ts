@@ -24,12 +24,6 @@ export class AnnoncesComponent implements OnInit {
     });
   }
 
-  insertData() {
-    this.dataService.insertData(this.annonce).subscribe(res => {
-      this.getAnnoncesData();
-    });
-  }
-
   deleteData(id:any) {
     this.dataService.deleteData(id).subscribe(res => {
       this.getAnnoncesData();

@@ -6,15 +6,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AnnoncesComponent } from './components/annonces/annonces.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { AnnonceEditComponent } from './components/annonce-edit/annonce-edit.component';
+import { AnnonceCreateComponent } from './components/annonce-create/annonce-create.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { AnnonceEditComponent } from './components/annonce-edit/annonce-edit.component';
 
 
 const appRoutes: Routes = [
-  { path: '', component:AnnoncesComponent},
-  { path: 'edit/:id', component:AnnonceEditComponent},
+  { path: 'annonces', component:AnnoncesComponent},
+  { path: 'annonces/edit/:id', component:AnnonceEditComponent},
+  { path: 'annonces/addAnnonce', component:AnnonceCreateComponent},
 ];
 
 
@@ -24,7 +26,8 @@ const appRoutes: Routes = [
     AppComponent,
     AnnoncesComponent,
     NavbarComponent,
-    AnnonceEditComponent
+    AnnonceEditComponent,
+    AnnonceCreateComponent
   ],
   imports: [
     BrowserModule,

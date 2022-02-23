@@ -40,9 +40,9 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($id)
     {
-        return $user;
+        return User::find($id);
     }
 
     /**
@@ -52,8 +52,14 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
+        $user = User::find($id);
+        if(is_null($user)) {
+            return response()->json([
+                'error' => 'Utilisateur non trouvé'
+            ],404);
+        }
         if($user->update($request->all())){
             return response()->json([
                 'success' => 'Utilisateur modifié avec succès'
@@ -67,8 +73,9 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
+        $user = User::find($id);
         $user->delete();
     }
 }

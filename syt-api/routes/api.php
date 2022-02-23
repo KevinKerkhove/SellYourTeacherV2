@@ -28,6 +28,8 @@ Route::put('updateAnnonce/{id}', [AnnonceController::class, 'update']);
 Route::delete('deleteAnnonce/{id}', [AnnonceController::class, 'destroy']);
 
 
-Route::middleware('auth:api')->group(function  () {
-    Route::apiResource('user',UserController::class);
-});
+Route::get('users', [UserController::class, 'index']);
+Route::post('addUser', [UserController::class, 'store']);
+Route::get('user/{id}', [UserController::class, 'show']);
+Route::put('updateUser/{id}', [UserController::class, 'update']);
+Route::delete('deleteUser/{id}', [UserController::class, 'destroy']);

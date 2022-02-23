@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Annonce } from 'src/app/annonce';
 import { DataService } from 'src/app/service/data.service';
 
@@ -13,7 +13,7 @@ export class AnnonceEditComponent implements OnInit {
   id:any;
   data:any;
   annonce = new Annonce();
-  constructor(private route:ActivatedRoute, private dataService:DataService) { }
+  constructor(private route:ActivatedRoute, private dataService:DataService, private router: Router) { }
 
   ngOnInit(): void {
     //console.log(this.route.snapshot.params['id']);
@@ -31,7 +31,7 @@ export class AnnonceEditComponent implements OnInit {
 
   updateAnnonce() {
     this.dataService.updateData(this.id, this.annonce).subscribe(res => {
-      
+      this.router.navigate(['/annonces'])
     })
   }
 
