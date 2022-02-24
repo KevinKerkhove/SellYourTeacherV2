@@ -30,7 +30,7 @@ export class AnnonceEditComponent implements OnInit {
   }
 
   updateAnnonce() {
-    this.dataService.updateData(this.id, this.annonce).subscribe(res => {
+    this.dataService.updateAnnonceData(this.id, this.annonce).subscribe(res => {
       this.router.navigate(['/annonces'])
     })
   }

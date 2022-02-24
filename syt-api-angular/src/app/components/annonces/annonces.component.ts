@@ -19,13 +19,13 @@ export class AnnoncesComponent implements OnInit {
   }
 
   getAnnoncesData(){
-    this.dataService.getData().subscribe(res => {
+    this.dataService.getAnnonceData().subscribe(res => {
       this.annonces = res;
     });
   }
 
   deleteData(id:any) {
-    this.dataService.deleteData(id).subscribe(res => {
+    this.dataService.deleteAnnonceData(id).subscribe(res => {
       this.getAnnoncesData();
     })
   }

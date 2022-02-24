@@ -10,13 +10,34 @@ import { AnnonceEditComponent } from './components/annonce-edit/annonce-edit.com
 import { AnnonceCreateComponent } from './components/annonce-create/annonce-create.component';
 
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ToastrModule } from 'ngx-toastr';
+
+import { AuthGuard } from './auth.guard';
+import { UserProfilComponent } from './components/user-profil/user-profil.component';
+import { HomeComponent } from './components/home/home.component';
 
 const appRoutes: Routes = [
-  { path: 'annonces', component:AnnoncesComponent},
-  { path: 'annonces/edit/:id', component:AnnonceEditComponent},
-  { path: 'annonces/addAnnonce', component:AnnonceCreateComponent},
+  { path: 'annonces', component:AnnoncesComponent,
+    canActivate: [AuthGuard]
+  },
+
+  {path: '', component: HomeComponent},
+
+  { path: 'annonces/edit/:id', component:AnnonceEditComponent,
+    canActivate: [AuthGuard]
+  },
+
+  { path: 'annonces/addAnnonce', component:AnnonceCreateComponent,
+    canActivate: [AuthGuard]
+  },
+  { path: 'register', component:RegisterComponent},
+  { path: 'login', component:LoginComponent},
 ];
 
 
@@ -27,7 +48,11 @@ const appRoutes: Routes = [
     AnnoncesComponent,
     NavbarComponent,
     AnnonceEditComponent,
-    AnnonceCreateComponent
+    AnnonceCreateComponent,
+    LoginComponent,
+    RegisterComponent,
+    UserProfilComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -35,6 +60,10 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+
   ],
   providers: [],
   bootstrap: [AppComponent]

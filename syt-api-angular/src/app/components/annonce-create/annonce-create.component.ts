@@ -19,13 +19,13 @@ export class AnnonceCreateComponent implements OnInit {
   }
 
   getAnnoncesData(){
-    this.dataService.getData().subscribe(res => {
+    this.dataService.getAnnonceData().subscribe(res => {
       this.annonces = res;
     });
   }
   
   insertData() {
-    this.dataService.insertData(this.annonce).subscribe(res => {
+    this.dataService.insertAnnonceData(this.annonce).subscribe(res => {
       this.router.navigate(['/annonces'])
     });
   }
