@@ -76,4 +76,24 @@ class AnnonceController extends Controller
         $annonce = Annonce::find($id);
         $annonce->delete();
     }
+
+    public function inscription($id, $user_id){
+        $annonce = Annonce::find($id);
+        if($annonce->student_id == null) {
+            $annonce->student_id = $user_id;
+            $annonce->save();
+            return response()->json([
+                'success' => 'Inscription à l\'annonce réussi'
+            ],200);
+        }
+       elseif($annonce->student_id == $user_id) {
+        $annonce->student_id = null;
+        $annonce->save();
+        return response()->json([
+            'success' => 'Désinscription de l\'annonce réussi'
+        ],200);
+       }
+    }
+    
+    
 }

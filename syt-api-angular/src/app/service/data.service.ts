@@ -44,4 +44,8 @@ export class DataService {
   getUserById(id:any) {
     return this.httpClient.get('http://127.0.0.1:8000/api/user/' + id);
   }
+
+  getUserData() {
+    return this.httpClient.get('http://127.0.0.1:8000/api/users');
+  }
 }

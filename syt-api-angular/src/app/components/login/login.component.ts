@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵɵqueryRefresh } from '@angular/core';
 
 import { DataService } from 'src/app/service/data.service';
 import { ToastrService } from 'ngx-toastr';
@@ -46,7 +46,10 @@ export class LoginComponent implements OnInit {
       if(this.data['status'] === 1) {
         this.token = this.data.data.token;
         localStorage.setItem('token', this.token);
-        this.router.navigate(['annonces']);
+        this.router.navigate(['annonces'])
+          .then(() => {
+            window.location.reload();
+          });
         this.toastr.success(JSON.stringify(this.data.message),JSON.stringify(this.data.code), {
           timeOut: 2000,
           progressBar: true

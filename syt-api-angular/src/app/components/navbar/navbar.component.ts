@@ -15,20 +15,33 @@ export class NavbarComponent implements OnInit {
   token:any;
   userData:any;
   email: any;
+  user:any;
+  data:any;
 
   constructor(private router: Router, private dataService: DataService) { 
   }
 
   logout() {
     localStorage.removeItem('token');
-    this.router.navigate(['login']);
+    this.router.navigate(['login'])
+          .then(() => {
+            window.location.reload();
+          });
+  }
+
+  getUser() {
+    this.dataService.getUserById(this.userData.user_id).subscribe(res => {
+      this.data = res,
+      this.user = new User(this.data.id, this.data.firstname, this.data.lastname, this.data.birthday, this.data.email, this.data.role_id)
+    });
   }
 
   ngOnInit(): void {
     this.token = localStorage.getItem('token');
-    this.userData = jwt_decode(this.token);
-    this.email = this.userData.email;
-    console.log(this.token);
-    console.log(this.userData.user_id);
+    if(this.token){
+      this.userData = jwt_decode(this.token);
+      this.email = this.userData.email;
+      this.getUser();
+    } 
   }
 }
