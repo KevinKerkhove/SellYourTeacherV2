@@ -4,7 +4,7 @@ import jwt_decode from 'jwt-decode';
 
 import { User } from 'src/app/models/user.model';
 import { DataService } from 'src/app/service/data.service';
-
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit {
   user:any;
   data:any;
 
-  constructor(private router: Router, private dataService: DataService) { 
+  constructor(private router: Router, private userService: UserService) { 
   }
 
   logout() {
@@ -30,7 +30,7 @@ export class NavbarComponent implements OnInit {
   }
 
   getUser() {
-    this.dataService.getUserById(this.userData.user_id).subscribe(res => {
+    this.userService.getUserById(this.userData.user_id).subscribe(res => {
       this.data = res,
       this.user = new User(this.data.id, this.data.firstname, this.data.lastname, this.data.birthday, this.data.email, this.data.role_id)
     });

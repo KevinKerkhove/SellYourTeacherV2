@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { DataService } from 'src/app/service/data.service';
+import { UserService } from 'src/app/service/user.service';
+import { AnnonceService } from 'src/app/service/annonce.service';
 
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -19,7 +21,7 @@ export class RegisterComponent implements OnInit {
   data: any;
   ngSelect = 'Choose a Role';
 
-  constructor(private formBuilder:FormBuilder, private dataService: DataService, private toastr: ToastrService, private router: Router) { }
+  constructor(private formBuilder:FormBuilder, private userService: UserService, private annonceService: AnnonceService,  private toastr: ToastrService, private router: Router) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -49,7 +51,7 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    this.dataService.registerUser(this.form.value).subscribe(res => {
+    this.userService.registerUser(this.form.value).subscribe(res => {
       this.data = res;
       //console.log(res);
       if(this.data['status'] === 1) {

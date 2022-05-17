@@ -24,10 +24,13 @@ Route::post('register', [UserController::class, 'register']);
 Route::post('login', [UserController::class, 'login']);
 
 Route::get('annonces', [AnnonceController::class, 'index']);
+Route::get('annonces/last6', [AnnonceController::class, 'last6']);
 Route::post('addAnnonce', [AnnonceController::class, 'addAnnonce']);
 Route::get('annonce/{id}', [AnnonceController::class, 'show']);
+Route::get('annonce/{id}/professor', [AnnonceController::class, 'show_professor']);
 Route::put('updateAnnonce/{id}', [AnnonceController::class, 'update']);
 Route::delete('deleteAnnonce/{id}', [AnnonceController::class, 'destroy']);
+Route::get('/annonce/{annonce_id}/inscription/{user_id}', [AnnonceController::class, 'inscription']);
 
 
 Route::get('users', [UserController::class, 'index']);

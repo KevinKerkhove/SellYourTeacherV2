@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 
 import { Annonce } from 'src/app/annonce';
 import { DataService } from 'src/app/service/data.service';
+import { UserService } from 'src/app/service/user.service';
+import { AnnonceService } from 'src/app/service/annonce.service';
 
 @Component({
   selector: 'app-annonce-create',
@@ -12,20 +14,20 @@ import { DataService } from 'src/app/service/data.service';
 export class AnnonceCreateComponent implements OnInit {
   annonce = new Annonce();
   annonces:any;
-  constructor(private dataService:DataService, private router: Router) { }
+  constructor(private userService:UserService, private annonceService:AnnonceService, private router: Router) { }
 
   ngOnInit(): void {
     this.getAnnoncesData();
   }
 
   getAnnoncesData(){
-    this.dataService.getAnnonceData().subscribe(res => {
+    this.annonceService.getAnnonceData().subscribe(res => {
       this.annonces = res;
     });
   }
   
   insertData() {
-    this.dataService.insertAnnonceData(this.annonce).subscribe(res => {
+    this.annonceService.insertAnnonceData(this.annonce).subscribe(res => {
       this.router.navigate(['/annonces'])
     });
   }

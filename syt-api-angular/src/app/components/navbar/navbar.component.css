@@ -1,0 +1,8 @@
+.navbar-brand {
+  color: #ffd700 !important;
+}
+
+.navbar {
+  width: 100% !important;
+  position: fixed;
+}

@@ -1,1 +1,6 @@
-<p>user-profil works!</p>
+<h1 *ngIf="user.role_id == 1">Etudiant</h1>
+<h1 *ngIf="user.role_id == 2">Professeur</h1>
+
+<p>{{user.firstname}} {{user.lastname}}</p>
+<p>Date de naissance: {{user.birthday}}</p>
+<p>Email: {{user.email}}</p>

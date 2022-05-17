@@ -21,15 +21,22 @@ import { ToastrModule } from 'ngx-toastr';
 import { AuthGuard } from './auth.guard';
 import { UserProfilComponent } from './components/user-profil/user-profil.component';
 import { HomeComponent } from './components/home/home.component';
+import { AnnonceDetailComponent } from './components/annonce-detail/annonce-detail.component';
+import { AnnonceInscriptionComponent } from './components/annonce-inscription/annonce-inscription.component';
 
 const appRoutes: Routes = [
   { path: 'annonces', component:AnnoncesComponent,
     canActivate: [AuthGuard]
   },
 
+  { path: 'annonce/:id', component:AnnonceDetailComponent },
+
   {path: '', component: HomeComponent},
 
   { path: 'annonces/edit/:id', component:AnnonceEditComponent,
+    canActivate: [AuthGuard]
+  },
+  { path: 'annonce/:id/inscription', component:AnnonceInscriptionComponent,
     canActivate: [AuthGuard]
   },
 
@@ -38,6 +45,7 @@ const appRoutes: Routes = [
   },
   { path: 'register', component:RegisterComponent},
   { path: 'login', component:LoginComponent},
+  { path :'profil', component:UserProfilComponent, canActivate: [AuthGuard]}
 ];
 
 
@@ -52,7 +60,9 @@ const appRoutes: Routes = [
     LoginComponent,
     RegisterComponent,
     UserProfilComponent,
-    HomeComponent
+    HomeComponent,
+    AnnonceDetailComponent,
+    AnnonceInscriptionComponent
   ],
   imports: [
     BrowserModule,

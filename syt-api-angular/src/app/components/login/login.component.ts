@@ -1,5 +1,7 @@
 import { Component, OnInit, ɵɵqueryRefresh } from '@angular/core';
 
+import { AnnonceService } from 'src/app/service/annonce.service';
+import { UserService } from 'src/app/service/user.service';
 import { DataService } from 'src/app/service/data.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -17,7 +19,7 @@ export class LoginComponent implements OnInit {
   data: any;
   token: any;
 
-  constructor(private dataService: DataService, private toastr: ToastrService, private formBuilder: FormBuilder, private router: Router) { }
+  constructor(private userService: UserService, private annonceService: AnnonceService, private toastr: ToastrService, private formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
     this.loginForm();
@@ -40,7 +42,7 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.dataService.login(this.form.value).subscribe(res => {
+    this.userService.login(this.form.value).subscribe(res => {
       this.data = res;
       //console.log(res);
       if(this.data['status'] === 1) {
@@ -51,13 +53,13 @@ export class LoginComponent implements OnInit {
             window.location.reload();
           });
         this.toastr.success(JSON.stringify(this.data.message),JSON.stringify(this.data.code), {
-          timeOut: 2000,
+          timeOut: 3000,
           progressBar: true
         });
       }
       else if(this.data['status'] === 0) {
         this.toastr.error(JSON.stringify(this.data.message),JSON.stringify(this.data.code), {
-          timeOut: 2000,
+          timeOut: 3000,
           progressBar: true
         });
       }

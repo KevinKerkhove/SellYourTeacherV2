@@ -1,0 +1,13 @@
+.annonce-card {
+  margin-bottom: 50px !important;
+}
+
+.price {
+  font-weight: bold;
+}
+
+#features h1 {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 50px;
+}

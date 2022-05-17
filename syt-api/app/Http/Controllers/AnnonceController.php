@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\Annonce as ResourcesAnnonce;
+use App\Models\User;
 use App\Models\Annonce;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\Annonce as ResourcesAnnonce;
 
 class AnnonceController extends Controller
 {
@@ -16,6 +18,16 @@ class AnnonceController extends Controller
     public function index()
     {
         return Annonce::all();
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function last6()
+    {
+        return Annonce::orderBy('created_at', 'DESC')->limit(6)->get();
     }
 
     /**
@@ -42,6 +54,18 @@ class AnnonceController extends Controller
     public function show($id)
     { 
         return Annonce::find($id);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Annonce  $annonce
+     * @return \Illuminate\Http\Response
+     */
+    public function show_professor($id)
+    { 
+        $annonce =  Annonce::find($id);
+        return User::find($annonce->professor_id);
     }
 
     /**
@@ -77,23 +101,34 @@ class AnnonceController extends Controller
         $annonce->delete();
     }
 
-    public function inscription($id, $user_id){
-        $annonce = Annonce::find($id);
-        if($annonce->student_id == null) {
-            $annonce->student_id = $user_id;
+    public function inscription($annonce_id, $user_id){
+        $user = User::find($user_id);
+        $annonce = Annonce::find($annonce_id);
+        if(is_null($annonce)) {
+            return response()->json([
+                'error' => 'Annonce non trouvée'
+            ],404);
+        }
+        if($user->role_id != 1){
+            return response()->json([
+                'Forbidden' => 'l\'utilisateur n\'est pas un étudiant'
+            ],403);
+        }
+        else{
+            if($annonce->student_id == null) {
+                $annonce->student_id = $user->id;
+                $annonce->save();
+                return response()->json([
+                    'success' => 'Inscription à l\'annonce réussi'
+                ],200);
+            }
+           elseif($annonce->student_id == $user->id) {
+            $annonce->student_id = null;
             $annonce->save();
             return response()->json([
-                'success' => 'Inscription à l\'annonce réussi'
+                'success' => 'Désinscription de l\'annonce réussi'
             ],200);
+           }
         }
-       elseif($annonce->student_id == $user_id) {
-        $annonce->student_id = null;
-        $annonce->save();
-        return response()->json([
-            'success' => 'Désinscription de l\'annonce réussi'
-        ],200);
-       }
     }
-    
-    
 }
