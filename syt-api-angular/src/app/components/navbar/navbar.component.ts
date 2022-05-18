@@ -32,7 +32,7 @@ export class NavbarComponent implements OnInit {
   getUser() {
     this.userService.getUserById(this.userData.user_id).subscribe(res => {
       this.data = res,
-      this.user = new User(this.data.id, this.data.firstname, this.data.lastname, this.data.birthday, this.data.email, this.data.role_id)
+      this.user = this.data
     });
   }
 

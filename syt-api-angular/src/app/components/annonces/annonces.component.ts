@@ -12,6 +12,7 @@ import { UserService } from 'src/app/service/user.service';
   styleUrls: ['./annonces.component.css']
 })
 export class AnnoncesComponent implements OnInit {
+  keyword: string;
   annonces:any;
   annonce = new Annonce();
   token:any;

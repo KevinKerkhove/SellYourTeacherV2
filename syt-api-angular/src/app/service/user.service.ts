@@ -32,4 +32,8 @@ export class UserService {
   getProfessorData() {
     return this.httpClient.get(environment.apiUrl + '/professors');
   }
+
+  updateUserData(id:any, data:any) {
+    return this.httpClient.put(environment.apiUrl + '/updateUser/' + id, data);
+  }
 }

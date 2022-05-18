@@ -133,11 +133,21 @@ class UserController extends Controller
                 'error' => 'Utilisateur non trouvé'
             ],404);
         }
-        if($user->update($request->all())){
+        else{
+            $user->firstname = $request->firstname;
+            $user->lastname = $request->lastname;
+            $user->birthday = $request->birthday;
+            $user->email = $request->email;
+            if($request->password != null){
+                $user->password = $request->password;
+            }
+            $user->save();
             return response()->json([
-                'success' => 'Utilisateur modifié avec succès'
+                'success' => 'User modifiée avec succès'
             ],200);
         }
+        
+        
     }
 
     /**

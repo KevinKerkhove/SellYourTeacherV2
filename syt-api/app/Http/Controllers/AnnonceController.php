@@ -6,7 +6,9 @@ use App\Models\User;
 use App\Models\Annonce;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\Annonce as ResourcesAnnonce;
+use DateTime;
 
 class AnnonceController extends Controller
 {
@@ -17,7 +19,28 @@ class AnnonceController extends Controller
      */
     public function index()
     {
-        return Annonce::orderBy('created_at', 'DESC')->get();
+        $current_date = new DateTime();
+        return Annonce::where('student_id', null)->where('date','>=',date('Y-m-d', $current_date->getTimestamp()))->orderBy('created_at', 'DESC')->get();
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function user_annonce_complete($id)
+    {
+        return Annonce::where('student_id','!=',null)->where('professor_id',$id)->orWhere('student_id', $id)->where('student_id','!=',null)->orderBy('created_at', 'DESC')->get();
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function user_annonce_empty($id)
+    {
+        return Annonce::where('professor_id',$id)->Where('student_id', null)->orderBy('created_at', 'DESC')->get();
     }
 
     /**

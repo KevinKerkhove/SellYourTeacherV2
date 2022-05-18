@@ -30,15 +30,26 @@
                 </div>
             </div>
         </header>
-        <!-- Last3 section-->
+        <!-- Annonce section-->
         <section class="py-5 border-bottom" id="features">
             <div class="container px-5 my-5">
-                <h1>Liste des annonces</h1>
+                <div class="text-center mb-5">
+                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-book"></i></div>
+                    <h2 class="fw-bolder">Annonces</h2>
+                    <p class="lead mb-0">Voici la liste de toutes les annonces</p>
+                </div>
+                <div class="row gx-5 justify-content-center">
+                    <div class="col-lg-6 form-group">
+                        <input type="text" class="form-control" placeholder="Chercher une annonce" [(ngModel)]="keyword">
+                    </div>
+                </div>
+                <br>
+                <br>
                 <div class="row gx-5">
-                    <div *ngFor="let annonce of annonces" class="col-lg-4 mb-5 mb-lg-0 annonce-card">
+                    <div *ngFor="let annonce of annonces | filter:keyword" class="col-lg-4 mb-5 mb-lg-0 annonce-card">
                         <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-book"></i></div>
                         <h2 class="h4 fw-bolder">{{annonce.title}}</h2>
-                        <p>{{ annonce.subject }}</p>
+                        <p>{{ annonce.subject }} - {{annonce.grade}}</p>
                         <p>{{ annonce.date }}</p>
                         <p><strong>Durée:</strong> {{ annonce.duration }}h <strong>Tarif: </strong><a class="price">{{ annonce.hourly_price }}€/h</a></p>
                         <div *ngFor="let professor of professors">

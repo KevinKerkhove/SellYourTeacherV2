@@ -24,6 +24,8 @@ Route::post('register', [UserController::class, 'register']);
 Route::post('login', [UserController::class, 'login']);
 
 Route::get('annonces', [AnnonceController::class, 'index']);
+Route::get('annonces/user/{id}', [AnnonceController::class, 'user_annonce_complete']);
+Route::get('annonces/user/{id}/empty', [AnnonceController::class, 'user_annonce_empty']);
 Route::get('annonces/last6', [AnnonceController::class, 'last6']);
 Route::post('addAnnonce/{id}', [AnnonceController::class, 'addAnnonce']);
 Route::get('annonce/{id}', [AnnonceController::class, 'show']);

@@ -67,8 +67,8 @@
                 <button class="btn btn-primary btn-lg px-4 me-sm-3" routerLink="/annonce/{{annonce_id}}/inscription">Inscription</button>
             </div>
             <div class="d-grid gap-3 d-sm-flex justify-content-sm-center" *ngIf="user?.id == annonce.professor_id">
-                <button class="btn btn-warning" routerLink="/annonces/edit/{{ annonce_id }}">Modifier</button>
-                <button class="btn btn-danger" (click)="deleteData(annonce.id)">Supprimer</button>
+                <button class="btn btn-primary btn-lg px-4 me-sm-3" routerLink="/annonces/edit/{{ annonce_id }}">Modifier</button>
+                <button class="btn btn-danger btn-lg px-4 me-sm-3" (click)="deleteData(annonce.id)">Supprimer</button>
             </div>
         
         </section>

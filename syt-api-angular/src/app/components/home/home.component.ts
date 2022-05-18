@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
   token: any;
   user:any;
   userData:any;
+  professors: any;
   constructor(private annonceService:AnnonceService, private userService:UserService, private router:Router) { }
 
   ngOnInit(): void {
@@ -22,6 +23,7 @@ export class HomeComponent implements OnInit {
       this.userData = jwt_decode(this.token);
       this.getUserData();
     } 
+    this.getProfessors();
     this.getAnnoncesData();
   }
 
@@ -34,6 +36,13 @@ export class HomeComponent implements OnInit {
   getUserData() {
     this.userService.getUserById(this.userData.user_id).subscribe(res => {
       this.user = res;
+    });
+  }
+
+  
+  getProfessors(){
+    this.userService.getProfessorData().subscribe(res => {
+      this.professors = res;
     });
   }
 }

@@ -25,6 +25,8 @@ import { AnnonceDetailComponent } from './components/annonce-detail/annonce-deta
 import { AnnonceInscriptionComponent } from './components/annonce-inscription/annonce-inscription.component';
 import { FooterComponent } from './components/footer/footer.component';
 
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
 const appRoutes: Routes = [
   { path: 'annonces', component:AnnoncesComponent,
     canActivate: [AuthGuard]
@@ -47,7 +49,9 @@ const appRoutes: Routes = [
   },
   { path: 'register', component:RegisterComponent},
   { path: 'login', component:LoginComponent},
-  { path :'profil', component:UserProfilComponent, canActivate: [AuthGuard]}
+  { path :'profil', component:UserProfilComponent,
+    canActivate: [AuthGuard]},
+  
 ];
 
 
@@ -65,10 +69,11 @@ const appRoutes: Routes = [
     HomeComponent,
     AnnonceDetailComponent,
     AnnonceInscriptionComponent,
-    FooterComponent
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
+    Ng2SearchPipeModule,
     AppRoutingModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),

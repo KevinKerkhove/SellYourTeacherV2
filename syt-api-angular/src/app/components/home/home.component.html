@@ -33,15 +33,22 @@
         <!-- Last3 section-->
         <section class="py-5 border-bottom" id="features">
             <div class="container px-5 my-5">
-                <h1>Dernières annonces</h1>
+                <div class="text-center mb-5">
+                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-book"></i></div>
+                    <h2 class="fw-bolder">Dernières Annonces</h2>
+                    <p class="lead mb-0">Voici les dernières annonces ajoutées sur le site !</p>
+                </div>
                 <div class="row gx-5">
                     <div *ngFor="let annonce of annonces" class="col-lg-4 mb-5 mb-lg-0 annonce-card">
                         <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-book"></i></div>
                         <h2 class="h4 fw-bolder">{{annonce.title}}</h2>
-                        <p>{{ annonce.description }}</p>
-                        <p>Date: {{ annonce.date }}</p>
-                        <p>Durée: {{ annonce.duration }}h</p>
-                        <p class="price">{{ annonce.hourly_price }}€/h</p>
+                        <p>{{ annonce.subject }} - {{annonce.grade}}</p>
+                        <p>{{ annonce.date }}</p>
+                        <p><strong>Durée:</strong> {{ annonce.duration }}h <strong>Tarif: </strong><a class="price">{{ annonce.hourly_price }}€/h</a></p>
+                        <div *ngFor="let professor of professors">
+                            <p *ngIf="professor.id == annonce.professor_id">Par: <strong>{{professor.firstname}} {{professor.lastname}}</strong></p>
+                        </div>
+                        
                         <a class="text-decoration-none" href="/annonce/{{annonce.id}}">
                             Details
                             <i class="bi bi-arrow-right"></i>
@@ -50,9 +57,33 @@
                 </div>
             </div>
         </section>
-        
-        <!-- Footer-->
-       
+        <!-- contact section-->
+        <section class="py-5 border-bottom">
+            <div class="container px-5 my-5 px-5">
+                <div class="text-center mb-5">
+                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-envelope"></i></div>
+                    <h2 class="fw-bolder">Contact</h2>
+                    <p class="lead mb-0">Nous aimerions recevoir vos avis !</p>
+                </div>
+                <div class="row gx-5 justify-content-center">
+                    <div class="col-lg-6">
+                        <!-- Contact Card 1-->
+                        <div class="card mb-4">
+                            <div class="card-body p-4">
+                                <div>
+                                    <div class="flex-shrink-0"><i class="bi bi-chat-right-quote-fill text-primary fs-1"></i></div>
+                                    <div class="ms-4">
+                                        <p class="mb-1">Merci d'utiliser SellYourTeacher, n'hésitez pas à nous faire un retour qu'il soit positif ou négatif !</p>
+                                        <p class="mb-1">Vous pouvez aussi nous contacter pour nous signaler un problème ou pour nous demander des renseignements.</p>
+                                        <div class="small text-muted">- Mail: contact.syt@test.fr</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
