@@ -23,41 +23,30 @@ export class AnnoncesComponent implements OnInit {
   constructor(private userService:UserService, private annonceService:AnnonceService, private router:Router) { }
 
   ngOnInit(): void {
-    this.token = localStorage.getItem('token');
-    if(this.token){
+    this.token = localStorage.getItem('token'); // récupère le token dans les localstorage
+    if(this.token){// si le token est différent de nul on le décode
       this.userData = jwt_decode(this.token);
-      this.getUserData();
+      this.getUserData();// on récupère les donnée de l'utilisateur connecté
     } 
-    this.getAnnoncesData();
-    this.getProfessors();
+    this.getAnnoncesData();// récupère les annonces
+    this.getProfessors();//récupère les professeur
   }
 
+  // fonction qui vas chercher les données d'un utilisateur grâce à l'id du token
   getUserData() {
     this.userService.getUserById(this.userData.user_id).subscribe(res => {
       this.user = res;
     });
   }
 
+  // fonction qui récupère la liste des annonces
   getAnnoncesData(){
     this.annonceService.getAnnonceData().subscribe(res => {
       this.annonces = res;
     });
   }
 
-  deleteData(id:any) {
-    this.annonceService.deleteAnnonceData(id).subscribe(res => {
-      this.getAnnoncesData();
-    })
-  }
-
-  inscriptionAnnonce(annonce_id:any, user_id:any){
-    this.annonceService.inscriptionAnnonce(annonce_id, user_id);
-    this.router.navigate(['annonces'])
-    .then(() => {
-      window.location.reload();
-    });
-  }
-
+  // fonction qui récupère la liste des professeur
   getProfessors(){
     this.userService.getProfessorData().subscribe(res => {
       this.professors = res;

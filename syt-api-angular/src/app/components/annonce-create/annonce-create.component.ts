@@ -26,21 +26,23 @@ export class AnnonceCreateComponent implements OnInit {
   constructor(private formBuilder:FormBuilder, private userService:UserService, private annonceService:AnnonceService, private router: Router) { }
 
   ngOnInit(): void {
-    this.token = localStorage.getItem('token');
-    if(this.token){
-      this.userData = jwt_decode(this.token);
-      this.getUserData();
+    this.token = localStorage.getItem('token'); // on récupère le token dans le localstorage
+    if(this.token){// si il est différent de null(donc un utilisateur est connecté)
+      this.userData = jwt_decode(this.token);//on récupère les info stocké dans le token
+      this.getUserData();// on récupère les données de l'utilisateurs connecté
     }
-    this.createForm();
+    this.createForm();// initialise le formulaire
 
   }
 
+  // fonction qui permet de récupèrer les données d'un utilisateur grâce à l'id
   getUserData() {
     this.userService.getUserById(this.userData.user_id).subscribe(res => {
       this.user = res;
     });
   }
 
+  // fonction qui permet de créer un form group avec des validators
   createForm() {
     this.form = this.formBuilder.group({
       title: [null, Validators.required],
@@ -54,26 +56,29 @@ export class AnnonceCreateComponent implements OnInit {
     });
   }
 
+
   get f() {
     return this.form.controls;
   }
 
+  // function qui permet d'envoyer le formulaire si il est valide
   submit(user_id:any) {
-    this.submitted = true;
+    this.submitted = true;// submitted car le formulaire est envoyé
     if(this.form.invalid) {
-      return;
+      return; // si le formulaire est invalid on return
     }
 
+    // on utilise la fonction du Service annonce qui permet d'envoyer des données au back-end
     this.annonceService.insertAnnonceData(user_id, this.form.value).subscribe(res => {
-      this.data = res;
-      if(this.data['status'] === 1) {
+      this.data = res; //on récupère le résultat 
+      if(this.data['status'] === 1) { // si le status est à 1 on renvoie vers les annonces car l'annonce à été créer
         return this.router.navigate(['annonces']);
       } else {
         return;
       }
     });
-    this.submitted = false;
-    this.form.reset();
+    this.submitted = false; // on remet submitted à false car l'envoie est terminé
+    this.form.reset(); // on reset le formulaire
     
     
   }

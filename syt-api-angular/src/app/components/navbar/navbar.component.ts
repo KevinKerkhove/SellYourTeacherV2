@@ -21,14 +21,26 @@ export class NavbarComponent implements OnInit {
   constructor(private router: Router, private userService: UserService) { 
   }
 
+  ngOnInit(): void {
+    this.token = localStorage.getItem('token');// récupère le token du localstorage
+    if(this.token){// si il est différent de null on le décode et stocke les donnée dans userData
+      this.userData = jwt_decode(this.token);
+      this.email = this.userData.email;
+      this.getUser();// récupère les données de l'utilisateur
+    } 
+  }
+
+
+  // fonction qui permet de se déconnecté
   logout() {
-    localStorage.removeItem('token');
-    this.router.navigate(['login'])
+    localStorage.removeItem('token'); // on supprime le token du local storage
+    this.router.navigate(['login'])// on redirige vers la page de connexion
           .then(() => {
             window.location.reload();
           });
   }
 
+  //récupère les donnée de l'utilisateur connecté grâce à l'id
   getUser() {
     this.userService.getUserById(this.userData.user_id).subscribe(res => {
       this.data = res,
@@ -36,12 +48,5 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.token = localStorage.getItem('token');
-    if(this.token){
-      this.userData = jwt_decode(this.token);
-      this.email = this.userData.email;
-      this.getUser();
-    } 
-  }
+  
 }

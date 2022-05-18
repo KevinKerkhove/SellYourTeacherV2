@@ -20,10 +20,11 @@ export class AnnonceEditComponent implements OnInit {
 
   ngOnInit(): void {
     //console.log(this.route.snapshot.params['id']);
-    this.id = this.route.snapshot.params['id'];
-    this.getData();
+    this.id = this.route.snapshot.params['id']; // récupère l'id qui est dans l'url
+    this.getData();// récupère les données de l'annonce que l'on veut modifier
   }
 
+  // fonction qui récupère les données de l'annonce grâce à l'id
   getData() {
     this.annonceService.getAnnonceById(this.id).subscribe(res => {
       //console.log(res);
@@ -32,6 +33,7 @@ export class AnnonceEditComponent implements OnInit {
     });
   }
 
+  // fonction qui permet d'envoyer l'annonce  modifié au back-end
   updateAnnonce() {
     this.annonceService.updateAnnonceData(this.id, this.annonce).subscribe(res => {
       this.router.navigate(['/annonces'])

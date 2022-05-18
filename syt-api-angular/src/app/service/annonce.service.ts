@@ -40,7 +40,7 @@ export class AnnonceService {
     return this.httpClient.get(environment.apiUrl + '/annonce/' + id + '/professor');
   }
 
-   // récupère le professeur d'une annonce
+   // récupère l'étudiant d'une annonce
   getAnnonceStudent(id:any) {
     return this.httpClient.get(environment.apiUrl + '/annonce/' + id + '/student');
   }
@@ -55,12 +55,12 @@ export class AnnonceService {
     return this.httpClient.get(environment.apiUrl + '/annonce/' + annonce_id + '/inscription/' + user_id);
   }
 
-  //récupère les annonces avec un étudiant inscrit
+  //récupère les annonces d'un utilisateur avec un étudiant inscrit
   getAnnonceUserComplete(id:any) {
     return this.httpClient.get(environment.apiUrl + '/annonces/user/' + id);
   }
 
-  //récupère les annonces avec aucun étudiant inscrit
+  //récupère les annonces d'un professeur avec aucun étudiant inscrit d
   getAnnonceUserEmpty(id:any) {
     return this.httpClient.get(environment.apiUrl + '/annonces/user/' + id +'/empty');
   }

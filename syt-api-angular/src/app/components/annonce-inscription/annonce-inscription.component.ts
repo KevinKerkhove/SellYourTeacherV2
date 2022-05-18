@@ -20,20 +20,23 @@ export class AnnonceInscriptionComponent implements OnInit {
   user: any;
   userData: any;
   annonce = new Annonce();
+  professor: any;
 
   constructor(private route:ActivatedRoute, private userService:UserService, private annonceService:AnnonceService, private router: Router) { }
 
   ngOnInit(): void {
-    this.token = localStorage.getItem('token');
-    if(this.token){
+    this.token = localStorage.getItem('token'); // récupère le token du local storage
+    if(this.token){// si le token est différent de null, on le décode et on stocke les info dans userData
       this.userData = jwt_decode(this.token);
-      this.getUserData();
+      this.getUserData();// récupère les données de l'utilisateur
+      this.getProfessorData();
     }
 
-    this.id = this.route.snapshot.params['id'];
-    this.getData();
+    this.id = this.route.snapshot.params['id'];//récupère l'id de l'annonce dans l'url
+    this.getData();// récupère les données de l'annonce
   }
 
+  // récupère les données de l'annonce grâce à l'id
   getData() {
     this.annonceService.getAnnonceById(this.id).subscribe(res => {
       //console.log(res);
@@ -42,12 +45,21 @@ export class AnnonceInscriptionComponent implements OnInit {
     });
   }
 
+  //fonction qui permet de récupérer les données du prof qui a créé l'annonce
+  getProfessorData(){
+    this.annonceService.getAnnonceProfessor(this.id).subscribe(res => {
+      this.professor = res
+    });
+  }
+
+  //récupère les données de l'utilisateur connecté grâce a l'id trouvé dans le token
   getUserData() {
     this.userService.getUserById(this.userData.user_id).subscribe(res => {
       this.user = res;
     });
   }
 
+  // fonction qui permet d'inscire un étudiant à une annonce
   inscriptionAnnonce(annonce_id:any, user_id:any) {
     this.annonceService.inscriptionAnnonce(annonce_id, user_id).subscribe(res => {
       this.router.navigate(['/annonce/'+ annonce_id])

@@ -24,9 +24,10 @@ export class RegisterComponent implements OnInit {
   constructor(private formBuilder:FormBuilder, private userService: UserService, private annonceService: AnnonceService,  private toastr: ToastrService, private router: Router) { }
 
   ngOnInit(): void {
-    this.createForm();
+    this.createForm();// créer le formulaire
   }
 
+  // créer un form group avec validators
   createForm() {
     this.form = this.formBuilder.group({
         firstname: [null, Validators.required],
@@ -45,23 +46,25 @@ export class RegisterComponent implements OnInit {
     return this.form.controls;
   }
 
+  // focntion qui permet d'envoyer les données du form au back-end
   submit() {
-    this.submitted = true;
+    this.submitted = true;// form envoyé donc submitted = true
     if(this.form.invalid) {
-      return;
+      return;// si invalid on return
     }
 
+    // on appel la fonction du service qui permet de créer un compte
     this.userService.registerUser(this.form.value).subscribe(res => {
       this.data = res;
       //console.log(res);
       if(this.data['status'] === 1) {
-        return this.router.navigate(['annonces']);
+        return this.router.navigate(['annonces']);// si le compte est créer on redirige vers les annonces
       } else {
-        return;
+        return;// sinon on return
       }
     });
-    this.submitted = false;
-    this.form.reset();
+    this.submitted = false;// submitted = false car on termine l'envoie
+    this.form.reset();// on reset le formulaire
     
     
   }

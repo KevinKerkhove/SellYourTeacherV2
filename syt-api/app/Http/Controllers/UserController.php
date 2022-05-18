@@ -13,16 +13,22 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 class UserController extends Controller
 {
 
-
+    
+    /**
+     * Créer un compte utilisateur
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function register(Request $request)
     {
-        $user = User::where('email', $request->email)->first();
-        if($user) {
+        $user = User::where('email', $request->email)->first();// on cherche si l'email est déjà utilisé
+        if($user) {// si oui on retourn 409
             $response['status'] = 0;
             $response['message'] = 'Email already exists';
             $response['code'] = 409;
         }
-        else{
+        else{ // sinon on créer et on retoun 200 si succès
             $user = User::create([
                 'firstname' => $request->firstname,
                 'lastname' => $request->lastname,
@@ -46,9 +52,9 @@ class UserController extends Controller
      */
     public function login()
     {
-        $credentials = request(['email', 'password']);
+        $credentials = request(['email', 'password']);// récupère les info de loggin
 
-        try{
+        try{// on essaye de se connecter avec les info on retourne 401 si le mot de passe/email incorrect 
             if (! JWTAuth::attempt($credentials)) {
                 $response['status'] = 0;
                 $response['code'] = 401;
@@ -62,7 +68,7 @@ class UserController extends Controller
             $response['message'] = 'could not create Token';
             return response()->json($response);
         }
-
+        //on récupère le token, l'id et l'email
         $user = JWTAuth::user();
         $data['token'] = JWTAuth::claims([
             'user_id' => $user->id,

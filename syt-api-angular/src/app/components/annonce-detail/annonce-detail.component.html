@@ -63,8 +63,10 @@
                     <p class="lead mb-0"><strong>Mail: </strong> {{ student?.email }}</p>
                 </div>
             </div>
-            <div class="d-grid gap-3 d-sm-flex justify-content-sm-center" *ngIf="annonce.student_id == null && user?.role_id == 1">
-                <button class="btn btn-primary btn-lg px-4 me-sm-3" routerLink="/annonce/{{annonce_id}}/inscription">Inscription</button>
+            <div class="d-grid gap-3 d-sm-flex justify-content-sm-center" *ngIf="user?.role_id == 1">
+                <button *ngIf="annonce.student_id == null" class="btn btn-primary btn-lg px-4 me-sm-3" routerLink="/annonce/{{annonce_id}}/inscription">Inscription</button>
+                <button *ngIf="annonce.student_id == user?.id" class="btn btn-primary btn-lg px-4 me-sm-3" routerLink="/annonce/{{annonce_id}}/inscription">Desinscription</button>
+
             </div>
             <div class="d-grid gap-3 d-sm-flex justify-content-sm-center" *ngIf="user?.id == annonce.professor_id">
                 <button class="btn btn-primary btn-lg px-4 me-sm-3" routerLink="/annonces/edit/{{ annonce_id }}">Modifier</button>
