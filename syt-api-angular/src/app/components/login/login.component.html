@@ -1,40 +1,87 @@
-<div class="container mt-4">
-    <header class="bg-dark text-white p-2 mb-2 text-center"> 
-        <h1>Login</h1>
-    </header>
-
-    <form (ngSubmit)="submit()" [formGroup]="form">
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="text" name="email" formControlName="email" class="form-control" placeholder="Enter an Email" [ngClass]="{'is-invalid': submitted && f['email'].errors}">
-        
-            <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
-                <div *ngIf="f['email'].errors['required']">
-                    Email is required
-                </div>
-
-                <div *ngIf="f['email'].errors['email']">
-                    Email must be a valid email adress
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" name="password" formControlName="password" class="form-control" placeholder="Enter a Password" [ngClass]="{'is-invalid': submitted && f['password'].errors}">  
-        
-            <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
-                <div *ngIf="f['password'].errors['required']">
-                    Password is required
-                </div>
-
-                <div *ngIf="f['password'].errors['minLength']">
-                    Password must be at least 6 characters
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <title>SellYourTeacher - Connexion</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Header-->
+        <header class="bg-dark py-5" style="background-image: url('/assets/background1.jpg');background-size: cover;
+        background-repeat: no-repeat;">
+            <div class="container px-5">
+                <div class="row gx-5 justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="text-center my-5">
+                            <h1 class="display-5 fw-bolder text-white mb-2">Connexion</h1>
+                            <p class="lead text-white-50 mb-4">Complétez le formulaire de connexion pour pour vous connecter sur votre compte, ou cliquez sur le bouton ci dessous si vous n'avez pas encore de compte !</p>
+                            <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                                <a class="btn btn-primary btn-lg px-4 me-sm-3" href="/register">Pas de compte ?</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-
+        </header>
         
-        <button type="submit" class="btn btn-dark btn-sm mt-4">Login</button>
-    </form>
-</div>
+        <!-- Form section-->
+        <section class="bg-light py-5">
+            <div class="container px-5 my-5 px-5">
+                <div class="text-center mb-5">
+                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-door-open"></i></div>
+                    <h2 class="fw-bolder">Formulaire de connexion</h2>
+                    <p class="lead mb-0">Merci de remplir les champs suivants pour vous inscrire</p>
+                </div>
+                <div class="row gx-5 justify-content-center">
+                    <div class="col-lg-6">
+                        <form (ngSubmit)="submit()" [formGroup]="form" id="contactForm">
+                            <!-- Email input-->
+                            <div class="form-floating mb-3">
+                                <input type="text" name="email" formControlName="email" class="form-control" placeholder="Enter an Email" [ngClass]="{'is-invalid': submitted && f['email'].errors}">
+                                <label for="email">Email</label>
+                                <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['email'].errors['required']">
+                                        Email requis
+                                    </div>
+
+                                    <div *ngIf="f['email'].errors['email']">
+                                        Email valide requis
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Password input-->
+                            <div class="form-floating mb-3">
+                                <input type="password" name="password" formControlName="password" class="form-control" placeholder="Enter a Password" [ngClass]="{'is-invalid': submitted && f['password'].errors}">  
+                                <label for="password">Mot de passe</label>
+                                <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['password'].errors['required']">
+                                        Mot de passe requis
+                                    </div>
+
+                                    <div *ngIf="f['password'].errors['minLength']">
+                                        Le mot de passe doit contenir au moin 6 caractère
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Submit Button-->
+                            <div class="d-grid"><button class="btn btn-primary btn-lg" id="submitButton" type="submit">Connexion</button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container px-5"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    </body>
+</html>

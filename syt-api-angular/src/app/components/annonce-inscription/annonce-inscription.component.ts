@@ -50,7 +50,7 @@ export class AnnonceInscriptionComponent implements OnInit {
 
   inscriptionAnnonce(annonce_id:any, user_id:any) {
     this.annonceService.inscriptionAnnonce(annonce_id, user_id).subscribe(res => {
-      this.router.navigate(['/annonce/id'])
+      this.router.navigate(['/annonce/'+ annonce_id])
     })
   }
 

@@ -4,8 +4,9 @@
 <br>
 <br>
 <div class="container">   
-        
-        <button class="btn btn-success" type="button" (click)="inscriptionAnnonce(id, user?.id)">Inscription</button>
-        <a class="btn btn-warning" href="/annonce/{{id}}">Retour</a>
-    
+        <div *ngIf="user?.role_id==1">
+            <button *ngIf="annonce.student_id == null" class="btn btn-success" type="button" (click)="inscriptionAnnonce(id, user?.id)">Inscription</button>
+            <button *ngIf="annonce.student_id == user.id" class="btn btn-danger" type="button" (click)="inscriptionAnnonce(id, user?.id)">Desinscription</button>
+            <a class="btn btn-warning" href="/annonce/{{id}}">Retour</a>
+        </div>
 </div>

@@ -1,102 +1,143 @@
-<div class="container mt-4">
-    <header class="bg-dark text-white p-2 mb-2 text-center"> 
-        <h1>Register</h1>
-    </header>
-
-    <form (ngSubmit)="submit()" [formGroup]="form">
-        <div class="form-group">
-            <label for="firstname">FirstName</label>
-            <input type="text" formControlName="firstname" name="firstname" class="form-control" placeholder="Enter a Firstame" [ngClass]="{'is-invalid': submitted && f['firstname'].errors}">
-            
-            <div *ngIf="submitted && f['firstname'].errors" class="invalid-feedback">
-                <div *ngIf="f['firstname'].errors['required']">
-                    Firstname is required
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <title>SellYourTeacher - Inscription</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Header-->
+        <header class="bg-dark py-5" style="background-image: url('/assets/background1.jpg');background-size: cover;
+        background-repeat: no-repeat;">
+            <div class="container px-5">
+                <div class="row gx-5 justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="text-center my-5">
+                            <h1 class="display-5 fw-bolder text-white mb-2">Inscription</h1>
+                            <p class="lead text-white-50 mb-4">Complétez le formulaire d'inscription pour avoir accès aux annonces, ou cliquez sur le bouton ci dessous si vous avez déjà un compte !</p>
+                            <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                                <a class="btn btn-primary btn-lg px-4 me-sm-3" href="/login">Déjà un compte ?</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            <label for="lastname">LastName</label>
-            <input type="text" formControlName="lastname" name="lastname" class="form-control" placeholder="Enter a Lastname" [ngClass]="{'is-invalid': submitted && f['lastname'].errors}">
-
-            <div *ngIf="submitted && f['lastname'].errors" class="invalid-feedback">
-                <div *ngIf="f['lastname'].errors['required']">
-                    Lastname is required
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="birthday">Birthday</label>
-            <input type="date" formControlName="birthday" name="birthday" class="form-control" placeholder="Enter a Birthday" [ngClass]="{'is-invalid': submitted && f['birthday'].errors}"> 
-
-            <div *ngIf="submitted && f['birthday'].errors" class="invalid-feedback">
-                <div *ngIf="f['birthday'].errors['required']">
-                    Birthday is required
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="role_id">Role</label>
-            <select class="form-select" formControlName="role_id" name="role_id" aria-label="Default select example" [(ngModel)]='ngSelect' [ngClass]="{'is-invalid': submitted && f['role_id'].errors}">
-                <option selected>{{ this.ngSelect }}</option>
-                <option [value]=1 >Student</option>
-                <option [value]=2 >Professor</option>
-            </select>
-
-            <div *ngIf="submitted && f['role_id'].errors" class="invalid-feedback">
-                <div *ngIf="f['role_id'].errors['required']">
-                    Role is required
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="text" name="email" formControlName="email" class="form-control" placeholder="Enter an Email" [ngClass]="{'is-invalid': submitted && f['email'].errors}">
+        </header>
         
-            <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
-                <div *ngIf="f['email'].errors['required']">
-                    Email is required
+        <!-- Form section-->
+        <section class="bg-light py-5">
+            <div class="container px-5 my-5 px-5">
+                <div class="text-center mb-5">
+                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-person-check"></i></div>
+                    <h2 class="fw-bolder">Formulaire d'inscription</h2>
+                    <p class="lead mb-0">Merci de remplir les champs suivants pour vous inscrire</p>
                 </div>
-
-                <div *ngIf="f['email'].errors['email']">
-                    Email must be a valid email adress
+                <div class="row gx-5 justify-content-center">
+                    <div class="col-lg-6">
+                        <form (ngSubmit)="submit()" [formGroup]="form" id="contactForm">
+                            <!-- LastName input-->
+                            <div class="form-floating mb-3">
+                                <input type="text" formControlName="lastname" name="lastname" class="form-control" placeholder="Enter a Lastname" [ngClass]="{'is-invalid': submitted && f['lastname'].errors}">
+                                <label for="lastname">Nom</label>
+                                <div *ngIf="submitted && f['lastname'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['lastname'].errors['required']">
+                                        Le nom est Requis
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- FirstName input-->
+                            <div class="form-floating mb-3">
+                                <input type="text" formControlName="firstname" name="firstname" class="form-control" placeholder="Enter a Firstame" [ngClass]="{'is-invalid': submitted && f['firstname'].errors}">
+                                <label for="firstname">Prénom</label>
+                                <div *ngIf="submitted && f['firstname'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['firstname'].errors['required']">
+                                        Le prénom est requis
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Birthday input-->
+                            <div class="form-floating mb-3">
+                                <input type="date" formControlName="birthday" name="birthday" class="form-control" placeholder="Enter a Birthday" [ngClass]="{'is-invalid': submitted && f['birthday'].errors}"> 
+                                <label for="birthday">Date de naissance</label>
+                                <div *ngIf="submitted && f['birthday'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['birthday'].errors['required']">
+                                        Date de naissance requise
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Email address input-->
+                            <div class="form-floating mb-3">
+                                <input type="text" name="email" formControlName="email" class="form-control" placeholder="Enter an Email" [ngClass]="{'is-invalid': submitted && f['email'].errors}">
+                                <label for="email">Email</label>
+                                <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['email'].errors['required']">
+                                        Email requis
+                                    </div>
+                                    <div *ngIf="f['email'].errors['email']">
+                                        Email valide requis
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- role select -->
+                            <div class="form-floating mb-3">
+                                <select class="form-select" formControlName="role_id" name="role_id" aria-label="Default select example" [(ngModel)]='ngSelect' [ngClass]="{'is-invalid': submitted && f['role_id'].errors}">
+                                    <option selected></option>
+                                    <option [value]=1 >Etudiant</option>
+                                    <option [value]=2 >Professeur</option>
+                                </select>
+                                <label for="role_id">Role</label>
+                                <div *ngIf="submitted && f['role_id'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['role_id'].errors['required']">
+                                        Rôle Requis
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Password input-->
+                            <div class="form-floating mb-3">
+                                <input type="password" name="password" formControlName="password" class="form-control" placeholder="Enter a Password" [ngClass]="{'is-invalid': submitted && f['password'].errors}">  
+                                <label for="password">Mot de passe</label>
+                                <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['password'].errors['required']">
+                                        Mot de passe requis
+                                    </div>
+                                    <div *ngIf="f['password'].errors['minLength']">
+                                        Le mot de passe doit contenir au moins 6 caractères
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Confirm Password input-->
+                            <div class="form-floating mb-3">
+                                <input type="password" name="confirm_password" formControlName="confirm_password" class="form-control" placeholder="Confirm Password" [ngClass]="{'is-invalid': submitted && f['confirm_password'].errors}">
+                                <label for="confirm_password">Confirmer mot de passe</label>
+                                <div *ngIf="submitted && f['confirm_password'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['confirm_password'].errors['required']">
+                                        Veuillez confirmer le mot de passe
+                                    </div>
+                                    <div *ngIf="f['confirm_password'].errors['mustMatch']">
+                                        Ce champs doit être identique au mot de passe
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Submit Button-->
+                            <div class="d-grid"><button class="btn btn-primary btn-lg" id="submitButton" type="submit">Inscription</button></div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container px-5"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    </body>
+</html>
 
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" name="password" formControlName="password" class="form-control" placeholder="Enter a Password" [ngClass]="{'is-invalid': submitted && f['password'].errors}">  
-        
-            <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
-                <div *ngIf="f['password'].errors['required']">
-                    Password is required
-                </div>
-
-                <div *ngIf="f['password'].errors['minLength']">
-                    Password must be at least 6 characters
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="confirm_password">Confirm Password</label>
-            <input type="password" name="confirm_password" formControlName="confirm_password" class="form-control" placeholder="Confirm Password" [ngClass]="{'is-invalid': submitted && f['confirm_password'].errors}">
-
-            <div *ngIf="submitted && f['confirm_password'].errors" class="invalid-feedback">
-                <div *ngIf="f['confirm_password'].errors['required']">
-                    Confirm Password is required
-                </div>
-
-                <div *ngIf="f['confirm_password'].errors['mustMatch']">
-                    Confirm password must match the Password
-                </div>
-            </div>
-        </div>
-        
-        <button type="submit" class="btn btn-dark btn-sm mt-4">Register</button>
-    </form>
-</div>

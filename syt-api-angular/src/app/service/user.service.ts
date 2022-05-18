@@ -28,4 +28,8 @@ export class UserService {
   getUserData() {
     return this.httpClient.get(environment.apiUrl + '/users');
   }
+
+  getProfessorData() {
+    return this.httpClient.get(environment.apiUrl + '/professors');
+  }
 }

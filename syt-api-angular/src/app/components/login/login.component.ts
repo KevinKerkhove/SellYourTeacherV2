@@ -52,16 +52,9 @@ export class LoginComponent implements OnInit {
           .then(() => {
             window.location.reload();
           });
-        this.toastr.success(JSON.stringify(this.data.message),JSON.stringify(this.data.code), {
-          timeOut: 3000,
-          progressBar: true
-        });
       }
       else if(this.data['status'] === 0) {
-        this.toastr.error(JSON.stringify(this.data.message),JSON.stringify(this.data.code), {
-          timeOut: 3000,
-          progressBar: true
-        });
+        return;
       }
     })
   }

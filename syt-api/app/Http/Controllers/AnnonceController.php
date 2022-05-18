@@ -17,7 +17,7 @@ class AnnonceController extends Controller
      */
     public function index()
     {
-        return Annonce::all();
+        return Annonce::where('student_id', null)->orderBy('created_at', 'DESC')->get();
     }
 
     /**
@@ -27,7 +27,7 @@ class AnnonceController extends Controller
      */
     public function last6()
     {
-        return Annonce::orderBy('created_at', 'DESC')->limit(6)->get();
+        return Annonce::where('student_id', null)->orderBy('created_at', 'DESC')->limit(6)->get();
     }
 
     /**
@@ -36,8 +36,9 @@ class AnnonceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function addAnnonce(Request $request)
+    public function addAnnonce(Request $request, $user_id)
     {
+        $request['professor_id'] = $user_id;
         if(Annonce::create($request->all())){
             return response()->json([
                 'success' => 'Annonce créée avec succès'
@@ -66,6 +67,18 @@ class AnnonceController extends Controller
     { 
         $annonce =  Annonce::find($id);
         return User::find($annonce->professor_id);
+    }
+
+     /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Annonce  $annonce
+     * @return \Illuminate\Http\Response
+     */
+    public function show_student($id)
+    { 
+        $annonce =  Annonce::find($id);
+        return User::find($annonce->student_id);
     }
 
     /**

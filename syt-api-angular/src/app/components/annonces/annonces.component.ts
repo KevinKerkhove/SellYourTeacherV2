@@ -18,6 +18,7 @@ export class AnnoncesComponent implements OnInit {
   userData:any;
   user:any;
   data:any;
+  professors: any;
   constructor(private userService:UserService, private annonceService:AnnonceService, private router:Router) { }
 
   ngOnInit(): void {
@@ -27,6 +28,7 @@ export class AnnoncesComponent implements OnInit {
       this.getUserData();
     } 
     this.getAnnoncesData();
+    this.getProfessors();
   }
 
   getUserData() {
@@ -52,6 +54,12 @@ export class AnnoncesComponent implements OnInit {
     this.router.navigate(['annonces'])
     .then(() => {
       window.location.reload();
+    });
+  }
+
+  getProfessors(){
+    this.userService.getProfessorData().subscribe(res => {
+      this.professors = res;
     });
   }
 

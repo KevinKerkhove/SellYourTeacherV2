@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <title>SellYourTeacher</title>
+        <title>SellYourTeacher - Detail annonce</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Bootstrap icons-->
@@ -33,7 +33,7 @@
         <section class="bg-light py-5">
             <div class="container px-5 my-5 px-5">
                 <div class="text-center mb-5">
-                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-envelope"></i></div>
+                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-book"></i></div>
                     <h2 class="fw-bolder">{{annonce.title}}</h2>
                     <p class="lead mb-0">{{annonce.description}}</p>
                     <p class="lead mb-0"><strong>Niveau: </strong> {{annonce.grade}}</p>
@@ -45,16 +45,30 @@
             </div>
             <div class="container px-5 my-5 px-5">
                 <div class="text-center mb-5">
-                    <div><img src="/assets/anonyme.webp" width="50px;"></div>
+                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-person"></i></div>
                     <h2 class="fw-bolder">Professeur</h2>
                     <p class="lead mb-0">{{ professor?.lastname }} {{ professor?.firstname }}</p>
                     <p class="lead mb-0"><strong>Date de naissance: </strong> {{ professor?.birthday }}</p>
-                    <p class="lead mb-0"><strong>Mail: </strong> {{ professor?.email }}</p>
+                    <p *ngIf="user?.id == annonce.student_id || user?.id == annonce.professor_id" class="lead mb-0"><strong>Mail: </strong> {{ professor?.email }}</p>
                 </div>
             </div>
-            <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+            <div *ngIf="annonce.student_id == user?.id || annonce.professor_id == user?.id" class="container px-5 my-5 px-5">
+                <div class="text-center mb-5" *ngIf="annonce.student_id != null" >
+                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-person"></i></div>
+                    <h2 class="fw-bolder">Etudiant</h2>
+                    <p class="lead mb-0">{{ student?.lastname }} {{ student?.firstname }}</p>
+                    <p class="lead mb-0"><strong>Date de naissance: </strong> {{ student?.birthday }}</p>
+                    <p class="lead mb-0"><strong>Mail: </strong> {{ student?.email }}</p>
+                </div>
+            </div>
+            <div class="d-grid gap-3 d-sm-flex justify-content-sm-center" *ngIf="annonce.student_id == null && user?.role_id == 1">
                 <button class="btn btn-primary btn-lg px-4 me-sm-3" routerLink="/annonce/{{annonce_id}}/inscription">Inscription</button>
             </div>
+            <div class="d-grid gap-3 d-sm-flex justify-content-sm-center" *ngIf="user?.id == annonce.professor_id">
+                <button class="btn btn-danger" (click)="deleteData(annonce.id)">Modifier</button>
+                <button class="btn btn-warning" routerLink="edit/{{ annonce.id }}">Supprimer</button>
+            </div>
+        
         </section>
         <!-- Footer-->
         <footer class="py-5 bg-dark">

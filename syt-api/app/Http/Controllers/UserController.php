@@ -13,6 +13,7 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 class UserController extends Controller
 {
 
+
     public function register(Request $request)
     {
         $user = User::where('email', $request->email)->first();
@@ -85,6 +86,10 @@ class UserController extends Controller
     public function index()
     {
         return User::orderBy('id','ASC')->get();
+    }
+
+    public function list_professors(){
+        return User::where('role_id', 2)->orderBy('id','ASC')->get();
     }
 
     /**

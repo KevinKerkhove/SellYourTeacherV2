@@ -55,16 +55,8 @@ export class RegisterComponent implements OnInit {
       this.data = res;
       //console.log(res);
       if(this.data['status'] === 1) {
-        this.toastr.success(JSON.stringify(this.data.message),JSON.stringify(this.data.code), {
-          timeOut: 2000,
-          progressBar: true
-        });
         return this.router.navigate(['annonces']);
       } else {
-        this.toastr.error(JSON.stringify(this.data.message),JSON.stringify(this.data.code), {
-          timeOut: 2000,
-          progressBar: true
-        });
         return;
       }
     });

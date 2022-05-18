@@ -14,8 +14,8 @@ export class AnnonceService {
     return this.httpClient.get(environment.apiUrl + '/annonces');
   }
 
-  insertAnnonceData(data:any) {
-    return this.httpClient.post(environment.apiUrl +'/addAnnonce',data);
+  insertAnnonceData(user_id:any, data:any) {
+    return this.httpClient.post(environment.apiUrl +'/addAnnonce/' + user_id ,data);
   }
 
   deleteAnnonceData(id:any) {
@@ -32,6 +32,10 @@ export class AnnonceService {
 
   getAnnonceProfessor(id:any) {
     return this.httpClient.get(environment.apiUrl + '/annonce/' + id + '/professor');
+  }
+
+  getAnnonceStudent(id:any) {
+    return this.httpClient.get(environment.apiUrl + '/annonce/' + id + '/student');
   }
 
   updateAnnonceData(id:any, data:any) {

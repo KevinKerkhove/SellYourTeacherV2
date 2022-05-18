@@ -29,7 +29,8 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard]
   },
 
-  { path: 'annonce/:id', component:AnnonceDetailComponent },
+  { path: 'annonce/:id', component:AnnonceDetailComponent,
+    canActivate: [AuthGuard] },
 
   {path: '', component: HomeComponent},
 
