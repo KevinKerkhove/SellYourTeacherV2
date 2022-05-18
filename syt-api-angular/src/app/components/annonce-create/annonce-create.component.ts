@@ -6,6 +6,8 @@ import { DataService } from 'src/app/service/data.service';
 import { UserService } from 'src/app/service/user.service';
 import { AnnonceService } from 'src/app/service/annonce.service';
 
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import jwt_decode from 'jwt-decode';
 
 @Component({
@@ -15,12 +17,13 @@ import jwt_decode from 'jwt-decode';
 })
 export class AnnonceCreateComponent implements OnInit {
   token :any;
-  annonce = new Annonce();
-  annonces:any;
   user: any;
   userData: any;
+  form:FormGroup;
+  submitted = false;
+  data:any;
 
-  constructor(private userService:UserService, private annonceService:AnnonceService, private router: Router) { }
+  constructor(private formBuilder:FormBuilder, private userService:UserService, private annonceService:AnnonceService, private router: Router) { }
 
   ngOnInit(): void {
     this.token = localStorage.getItem('token');
@@ -28,7 +31,7 @@ export class AnnonceCreateComponent implements OnInit {
       this.userData = jwt_decode(this.token);
       this.getUserData();
     }
-    this.getAnnoncesData();
+    this.createForm();
 
   }
 
@@ -38,16 +41,41 @@ export class AnnonceCreateComponent implements OnInit {
     });
   }
 
-  getAnnoncesData(){
-    this.annonceService.getAnnonceData().subscribe(res => {
-      this.annonces = res;
+  createForm() {
+    this.form = this.formBuilder.group({
+      title: [null, Validators.required],
+      subject: [null, Validators.required],
+      description: [null, Validators.required],
+      grade: [null, Validators.required],
+      date: [null, Validators.required],
+      duration: [null, [Validators.required]],
+      hourly_price: [null, [Validators.required]],
+        
     });
   }
-  
-  insertData(user_id: any) {
-    this.annonceService.insertAnnonceData(user_id, this.annonce).subscribe(res => {
-      this.router.navigate(['/annonces'])
+
+  get f() {
+    return this.form.controls;
+  }
+
+  submit(user_id:any) {
+    this.submitted = true;
+    if(this.form.invalid) {
+      return;
+    }
+
+    this.annonceService.insertAnnonceData(user_id, this.form.value).subscribe(res => {
+      this.data = res;
+      if(this.data['status'] === 1) {
+        return this.router.navigate(['annonces']);
+      } else {
+        return;
+      }
     });
+    this.submitted = false;
+    this.form.reset();
+    
+    
   }
 
 }

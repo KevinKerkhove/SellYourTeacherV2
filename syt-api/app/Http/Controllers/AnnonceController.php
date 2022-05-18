@@ -17,7 +17,7 @@ class AnnonceController extends Controller
      */
     public function index()
     {
-        return Annonce::where('student_id', null)->orderBy('created_at', 'DESC')->get();
+        return Annonce::orderBy('created_at', 'DESC')->get();
     }
 
     /**
@@ -38,12 +38,22 @@ class AnnonceController extends Controller
      */
     public function addAnnonce(Request $request, $user_id)
     {
-        $request['professor_id'] = $user_id;
-        if(Annonce::create($request->all())){
-            return response()->json([
-                'success' => 'Annonce créée avec succès'
-            ],200);
-        }
+        $annonce = Annonce::create([
+            'title' => $request->title,
+            'subject' => $request->subject,
+            'description' => $request->description,
+            'grade' => $request->grade,
+            'date' => $request->date,
+            'duration' => $request->duration,
+            'professor_id' => $user_id,
+            'hourly_price' => $request->hourly_price,
+        ]);
+        $annonce->save();
+        $response['status'] = 1;
+        $response['message'] = 'Annonce créée avec succès';
+        $response['code'] = 200;
+    
+        return response()->json($response);
     }
 
     /**
@@ -69,7 +79,7 @@ class AnnonceController extends Controller
         return User::find($annonce->professor_id);
     }
 
-     /**
+    /**
      * Display the specified resource.
      *
      * @param  \App\Models\Annonce  $annonce
@@ -135,13 +145,13 @@ class AnnonceController extends Controller
                     'success' => 'Inscription à l\'annonce réussi'
                 ],200);
             }
-           elseif($annonce->student_id == $user->id) {
-            $annonce->student_id = null;
-            $annonce->save();
-            return response()->json([
-                'success' => 'Désinscription de l\'annonce réussi'
-            ],200);
-           }
+            elseif($annonce->student_id == $user->id) {
+                $annonce->student_id = null;
+                $annonce->save();
+                return response()->json([
+                    'success' => 'Désinscription de l\'annonce réussi'
+                ],200);
+            }
         }
     }
 }

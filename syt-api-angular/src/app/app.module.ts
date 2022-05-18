@@ -23,6 +23,7 @@ import { UserProfilComponent } from './components/user-profil/user-profil.compon
 import { HomeComponent } from './components/home/home.component';
 import { AnnonceDetailComponent } from './components/annonce-detail/annonce-detail.component';
 import { AnnonceInscriptionComponent } from './components/annonce-inscription/annonce-inscription.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 const appRoutes: Routes = [
   { path: 'annonces', component:AnnoncesComponent,
@@ -63,7 +64,8 @@ const appRoutes: Routes = [
     UserProfilComponent,
     HomeComponent,
     AnnonceDetailComponent,
-    AnnonceInscriptionComponent
+    AnnonceInscriptionComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
